@@ -15,6 +15,10 @@ public class CameraController : MonoBehaviour {
     public bool SwapUp = false;
     public bool SwapDown = false;
     public int tC;
+
+    public float minAngle = 0.0F;
+    public float maxAngle = 45.0F;
+    public float rotation_speed = 5f;
     // Use this for initialization
     void Start () {
         originRotation = transform.rotation;
@@ -63,9 +67,12 @@ public class CameraController : MonoBehaviour {
         }
         if (SwapRight||SwapLeft)
         {
-
-            transform.RotateAround(Vector3.up, deltaX * Time.deltaTime);
-        }
+            int k = 1;
+            if (SwapLeft) k = -1; else k = 1; 
+            float rotation_angle = Mathf.LerpAngle(cPos.eulerAngles.y, cPos.eulerAngles.y + 45f * k, rotation_speed * Time.deltaTime);
+            transform.eulerAngles = new Vector3(cPos.eulerAngles.x, rotation_angle, cPos.eulerAngles.z);
+            //transform.RotateAround(Vector3.up, deltaX * Time.deltaTime);
+        } 
       
     }
     public void Swipe()
