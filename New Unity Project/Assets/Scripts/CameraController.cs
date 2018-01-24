@@ -41,6 +41,7 @@ public class CameraController : MonoBehaviour {
             SwapLeft = false;
             SwapRight = false;
             SwapUp = false;
+            deltaX = 0;
         }
         current = transform.rotation;
         if (bCameraScript.isSwitchDown)
@@ -67,11 +68,9 @@ public class CameraController : MonoBehaviour {
         }
         if (SwapRight||SwapLeft)
         {
-            int k = 1;
-            if (SwapLeft) k = -1; else k = 1; 
-            float rotation_angle = Mathf.LerpAngle(cPos.eulerAngles.y, cPos.eulerAngles.y + 45f * k, rotation_speed * Time.deltaTime);
+            float rotation_angle = Mathf.LerpAngle(cPos.eulerAngles.y, cPos.eulerAngles.y + deltaX, rotation_speed * Time.deltaTime);
             transform.eulerAngles = new Vector3(cPos.eulerAngles.x, rotation_angle, cPos.eulerAngles.z);
-            //transform.RotateAround(Vector3.up, deltaX * Time.deltaTime);
+            
         } 
       
     }
